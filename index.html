@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="东哥核心训练">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+<title>东哥 · 10分钟核心训练计划</title>
+<style>
+  /* ========== 手机桌面图标启动 ========== */
+  @media (display-mode: standalone) {
+    body { padding-top: env(safe-area-inset-top); }
+  }
+
+  /* ========== CSS 变量 ========== */
+  :root {
+    --bg: #f5f5f0;
+    --surface: #ffffff;
+    --surface-hover: #f0efea;
+    --border: #e2ddd4;
+    --text: #2c2c2c;
+    --text-secondary: #7a7568;
+    --accent: #c0392b;
+    --accent2: #e67e22;
+    --accent-light: #fdf0ed;
+    --success: #27ae60;
+    --success-light: #eafaf1;
+    --warning-light: #fef9e7;
+    --shadow: 0 1px 4px rgba(0,0,0,0.06);
+    --radius: 12px;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a;
+      --surface: #252525;
+      --surface-hover: #303030;
+      --border: #3a3a3a;
+      --text: #e8e0d8;
+      --text-secondary: #8a8478;
+      --accent-light: #3d1f1f;
+      --success-light: #1a3a2a;
+      --warning-light: #3a3a1a;
+      --shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+  }
+
+  /* ========== Reset & Base ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 12px;
+    padding-bottom: calc(80px + var(--safe-bottom));
+    max-width: 520px;
+    margin: 0 auto;
+    /* 禁止双击缩放 */
+    touch-action: manipulation;
+  }
+
+  /* ========== Header ========== */
+  .header { text-align: center; padding: 20px 0 14px; }
+  .header h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+  .header .subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 2px; }
+
+  /* ========== Profile Card ========== */
+  .profile-card {
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    border-radius: var(--radius);
+    padding: 18px;
+    color: #f0ece4;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  @media (prefers-color-scheme: dark) {
+    .profile-card { background: linear-gradient(135deg, #3a3a3a, #252525); }
+  }
+  .profile-row { display: flex; gap: 8px; }
+  .profile-stat { text-align: center; flex: 1; min-width: 0; }
+  .profile-stat .num { font-size: 18px; font-weight: 800; color: #f39c12; }
+  .profile-stat .label { font-size: 10px; opacity: 0.7; margin-top: 1px; }
+  .profile-goal { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  .profile-goal .goal-text { font-size: 13px; font-weight: 600; color: #f5f0e8; }
+  .profile-goal .goal-sub { font-size: 11px; opacity: 0.6; margin-top: 3px; }
+
+  /* ========== Streak ========== */
+  .streak-card {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    border-radius: var(--radius);
+    padding: 18px;
+    text-align: center;
+    color: white;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(192,57,43,0.25);
+  }
+  .streak-number { font-size: 40px; font-weight: 800; line-height: 1; }
+  .streak-label { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+  .streak-sub { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+
+  .date-badge {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    padding: 8px;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  /* ========== Congrats + Share ========== */
+  .congrats-area { display: none; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .congrats-area.show { display: flex; }
+  .congrats-msg {
+    text-align: center;
+    padding: 14px;
+    background: var(--success-light);
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--success);
+    border: 1px solid var(--success);
+  }
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 14px;  /* 大触摸区域 */
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #07c160;
+    color: white;
+    box-shadow: 0 2px 8px rgba(7,193,96,0.3);
+    min-height: 52px;  /* 44px 以上，舒适触摸 */
+  }
+  .share-btn:active { transform: scale(0.97); opacity: 0.9; }
+  .share-btn .sub { font-size: 12px; font-weight: 400; opacity: 0.85; }
+
+  /* ========== Section ========== */
+  .section { background: var(--surface); border-radius: var(--radius); margin-bottom: 10px; box-shadow: var(--shadow); overflow: hidden; }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    gap: 8px;
+    min-height: 48px;  /* 触摸友好 */
+  }
+  .section-header:active { background: var(--surface-hover); }
+  .section-header .title { font-size: 15px; font-weight: 700; }
+  .section-header .toggle-icon { font-size: 14px; color: var(--text-secondary); transition: transform 0.3s; flex-shrink: 0; }
+  .section-header .toggle-icon.open { transform: rotate(180deg); }
+  .section-body { padding: 0 16px 14px; display: none; }
+  .section-body.open { display: block; }
+
+  /* ========== Phase Grid ========== */
+  .phase-grid { display: flex; gap: 6px; margin-bottom: 12px; }
+  .phase-card {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    min-height: 80px;
+  }
+  .phase-card:active { transform: scale(0.96); background: var(--surface-hover); }
+  .phase-card .phase-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+  .phase-card .phase-week { color: var(--accent2); font-weight: 600; font-size: 11px; }
+  .phase-card .phase-item { color: var(--text-secondary); font-size: 10px; line-height: 1.5; margin-top: 3px; }
+  .phase-card .click-hint { font-size: 9px; color: var(--text-secondary); opacity: 0.4; margin-top: 4px; }
+  .phase-card.current { border-color: var(--accent2); background: var(--warning-light); box-shadow: 0 0 0 1px var(--accent2); }
+  .phase-card.current::after { content: '📍'; position: absolute; top: -5px; right: -5px; font-size: 12px; }
+
+  /* ========== Video List ========== */
+  .video-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .video-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); transition: all 0.15s; min-height: 52px; }
+  .video-item:active { background: var(--surface-hover); border-color: var(--accent); }
+  .video-item .emoji { font-size: 20px; }
+  .video-item .info { flex: 1; }
+  .video-item .info .vtitle { font-size: 13px; font-weight: 600; }
+  .video-item .info .vdesc { font-size: 11px; color: var(--text-secondary); }
+  .video-item .link-icon { font-size: 14px; color: var(--text-secondary); }
+
+  /* ========== Meal Grid ========== */
+  .meal-grid { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+  .meal-card { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .meal-card .meal-time { font-size: 10px; color: var(--text-secondary); font-weight: 600; }
+  .meal-card .meal-icon { font-size: 24px; flex-shrink: 0; }
+  .meal-card .meal-food { font-size: 12px; line-height: 1.5; text-align: left; }
+  .meal-card .meal-food span { display: inline; }
+  .meal-card .meal-food span::after { content: ' · '; }
+  .meal-card .meal-food span:last-child::after { content: ''; }
+
+  /* ========== Diet Rules ========== */
+  .diet-rule-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .diet-rule-item { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 10px 12px; background: var(--bg); border-radius: 8px; }
+  .diet-rule-item .badge { background: var(--accent2); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; }
+  .diet-rule-item .rule-desc { color: var(--text-secondary); font-size: 12px; }
+
+  /* ========== Expect Box ========== */
+  .expect-box { display: flex; gap: 6px; margin-top: 12px; }
+  .expect-box .item { flex: 1; text-align: center; border: 1px solid var(--border); border-radius: 8px; padding: 10px 6px; }
+  .expect-box .item .e-time { font-size: 11px; color: var(--text-secondary); }
+  .expect-box .item .e-result { font-size: 12px; font-weight: 700; margin-top: 2px; }
+  .expect-box .item .e-result.ok { color: var(--success); }
+
+  /* ========== Checklist ========== */
+  .progress-bar-bg { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s ease; background: var(--accent2); }
+  .progress-bar-fill.complete { background: var(--success); }
+
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;       /* 加大触摸区域 */
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.15s;
+    min-height: 52px;      /* 44px 舒适阈值以上 */
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item.done { opacity: 0.5; text-decoration: line-through; }
+  .checklist-item:active { opacity: 0.7; }
+  .checklist-item .checkbox {
+    width: 26px; height: 26px; min-width: 26px;
+    border-radius: 50%; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; transition: all 0.2s;
+  }
+  .checklist-item.done .checkbox { background: var(--success); border-color: var(--success); color: white; }
+  .checklist-item .item-text { flex: 1; }
+  .checklist-item .item-title { font-size: 14px; font-weight: 600; }
+  .checklist-item .item-desc { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .section-progress { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+
+  /* ========== Week Grid ========== */
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 8px 0 4px; }
+  .week-day { text-align: center; font-size: 10px; color: var(--text-secondary); font-weight: 500; padding: 2px 0; }
+  .week-ball {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    background: var(--border); color: var(--text-secondary);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 40px;  /* 稍微大一点 */
+  }
+  .week-ball.done { background: var(--success); color: white; }
+  .week-ball.today { border: 2px solid var(--accent2); }
+  .week-ball.today.done { border-color: var(--success); }
+  .week-ball.missed { background: #fde8e5; color: #c0392b; }
+
+  /* ========== Timeline ========== */
+  .timeline-month { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+  .timeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)); gap: 3px; }
+  .timeline-day { aspect-ratio: 1; border-radius: 3px; background: var(--border); min-height: 12px; }
+  .timeline-day.done { background: var(--success); opacity: 0.8; }
+  .timeline-day.missed { background: var(--accent); opacity: 0.35; }
+  .timeline-day.today-highlight { border: 1.5px solid var(--accent2); }
+
+  /* ========== Buttons ========== */
+  .reset-area { text-align: center; margin-top: 14px; }
+  .reset-btn {
+    background: none; border: 1px solid var(--border); color: var(--text-secondary);
+    padding: 10px 20px; border-radius: 10px; font-size: 13px;
+    cursor: pointer; transition: all 0.15s; min-height: 44px;
+  }
+  .reset-btn:active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  .quote { text-align: center; padding: 18px 12px; font-size: 12px; color: var(--text-secondary); font-style: italic; line-height: 1.6; }
+
+  /* ========== Modal（底部弹出） ========== */
+  .modal-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--surface);
+    border-radius: 16px 16px 0 0;
+    max-width: 520px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 20px 16px calc(20px + var(--safe-bottom));
+    animation: modalSlideUp 0.3s ease;
+    /* 手机底部安全区 */
+  }
+  @keyframes modalSlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 14px; }
+  .modal-title { font-size: 17px; font-weight: 800; text-align: center; margin-bottom: 4px; }
+  .modal-sub { font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: 14px; }
+  .modal-exercise { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; }
+  .modal-exercise .e-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .modal-exercise .e-info { flex: 1; }
+  .modal-exercise .e-info .e-name { font-size: 15px; font-weight: 700; }
+  .modal-exercise .e-info .e-set { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .modal-exercise .e-info .e-tip { font-size: 12px; color: var(--accent2); margin-top: 6px; background: var(--warning-light); padding: 5px 8px; border-radius: 6px; display: inline-block; }
+  .modal-video-link { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--accent); text-decoration: none; margin-top: 6px; font-weight: 600; padding: 4px 0; }
+  .modal-close-btn {
+    width: 100%; padding: 14px; border-radius: 10px; border: none;
+    background: var(--bg); color: var(--text);
+    font-size: 16px; font-weight: 600;
+    cursor: pointer; margin-top: 10px; min-height: 48px;
+  }
+  .modal-close-btn:active { opacity: 0.7; }
+
+  /* ========== Toast ========== */
+  .toast {
+    display: none;
+    position: fixed;
+    bottom: calc(30px + var(--safe-bottom));
+    left: 16px; right: 16px;
+    margin: 0 auto;
+    max-width: 400px;
+    background: var(--text);
+    color: var(--bg);
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1000;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    animation: toastIn 0.3s ease;
+  }
+  .toast.show { display: block; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ========== 窄屏微调 ========== */
+  @media (max-width: 380px) {
+    body { padding: 10px; padding-bottom: calc(70px + var(--safe-bottom)); }
+    .header h1 { font-size: 18px; }
+    .streak-number { font-size: 34px; }
+    .profile-stat .num { font-size: 16px; }
+    .profile-card { padding: 14px; }
+    .section-header .title { font-size: 14px; }
+    .checklist-item .item-title { font-size: 13px; }
+    .phase-card { padding: 8px 4px; }
+    .phase-card .phase-item { font-size: 9px; }
+    .toast { left: 12px; right: 12px; font-size: 13px; }
+  }
+
+  /* ========== 宽屏桌面 ========== */
+  @media (min-width: 520px) {
+    .meal-grid { flex-direction: row; gap: 8px; }
+    .meal-card { flex-direction: column; text-align: center; flex: 1; gap: 4px; padding: 14px 10px; }
+    .meal-card .meal-time { font-size: 11px; }
+    .meal-card .meal-food { text-align: center; }
+    .meal-card .meal-food span { display: block; }
+    .meal-card .meal-food span::after { content: ''; }
+    .phase-card .phase-item { font-size: 11px; }
+    .week-ball { max-width: 36px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== TOAST ==================== -->
+<div class="toast" id="toast"></div>
+
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+  <h1>🔥 东哥 · 10分钟核心计划</h1>
+  <div class="subtitle">减肚子 · 练腹肌 · 每天只要 10 分钟</div>
+</div>
+
+<!-- ==================== PROFILE ==================== -->
+<div class="profile-card">
+  <div class="profile-row">
+    <div class="profile-stat"><div class="num">40</div><div class="label">年龄</div></div>
+    <div class="profile-stat"><div class="num">171 cm</div><div class="label">身高</div></div>
+    <div class="profile-stat"><div class="num">67.5 kg</div><div class="label">体重</div></div>
+    <div class="profile-stat"><div class="num">23.1</div><div class="label">BMI · 标准 ✅</div></div>
+  </div>
+  <div class="profile-goal">
+    <div class="goal-text">🎯 小肚子减掉 → 隐约腹肌线条</div>
+    <div class="goal-sub">每天 10 分钟 · 不辛苦 · 坚持就能看到变化</div>
+  </div>
+</div>
+
+<!-- ==================== STREAK ==================== -->
+<div class="streak-card">
+  <div class="streak-number" id="streakCount">0</div>
+  <div class="streak-label">连续完成天数 🔥</div>
+  <div class="streak-sub">每天训练打卡 + 饮食打卡都算</div>
+</div>
+
+<div class="date-badge" id="dateDisplay"></div>
+
+<!-- ==================== CONGRATS + SHARE ==================== -->
+<div class="congrats-area" id="congratsArea">
+  <div class="congrats-msg">🎉 今日全部完成！干得漂亮！约 <span id="timeSpent">10</span> 分钟</div>
+  <button class="share-btn" onclick="shareToMoments()">
+    📱 分享到朋友圈
+    <span class="sub">让朋友见证你的自律</span>
+  </button>
+</div>
+
+<!-- ==================== 完整方案 ==================== -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection('planOverview')">
+    <span class="title">📋 完整训练方案</span>
+    <span class="toggle-icon" id="ico-planOverview">▾</span>
+  </div>
+  <div class="section-body open" id="planOverview">
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">
+      训练分三个阶段自动进阶，每 2 周升一级。<strong>点卡片查看动作详解 + 视频教程👇</strong>
+    </p>
+    <div class="phase-grid">
+      <div class="phase-card" id="phase1" onclick="openPhaseModal('1-2')">
+        <div class="phase-week">第 1-2 周</div>
+        <div class="phase-title">🌱 入门</div>
+        <div class="phase-item">平板支撑 30s×3<br>空中蹬车 20×3<br>鸟狗式 10×3</div>
+        <div class="click-hint">👆 点我查看详情</div>
+      </div>
+      <div class="phase-card" id="phase2" onclick="openPhaseModal('3-4')">
+        <div class="phase-week">第 3-4 周</div>
+        <div class="phase-title">🌿 进阶</div>
+        <div class="phase-item">平板支撑 45s×3<br>反向卷腹 15×3<br>死虫式 12×3</div>
+        <div class="click-hint">👆 点我查看详情</div>
+      </div>
+      <div class="phase-card" id="phase3" onclick="openPhaseModal('5+')">
+        <div class="phase-week">第 5 周+</div>
+        <div class="phase-title">🌳 强化</div>
+        <div class="phase-item">平板支撑 60s×3<br>空中蹬车 25×3<br>死虫式 15×3<br>反向卷腹 15×2</div>
+        <div class="click-hint">👆 点我查看详情</div>
+      </div>
+    </div>
+
+    <!-- 预期结果 -->
+    <div style="font-size:14px;font-weight:700;margin:14px 0 8px;">📈 预期效果</div>
+    <div class="expect-box">
+      <div class="item"><div class="e-time">1 个月</div><div class="e-result">腰部变紧致</div></div>
+      <div class="item"><div class="e-time">2 个月</div><div class="e-result">小肚子明显减小</div></div>
+      <div class="item"><div class="e-time">3 个月+</div><div class="e-result ok">隐约腹肌线条 ✨</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 饮食方案 ==================== -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection('dietPlan')">
+    <span class="title">🥗 完整饮食方案</span>
+    <span class="toggle-icon" id="ico-dietPlan">▾</span>
+  </div>
+  <div class="section-body" id="dietPlan">
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">
+      <strong>不节食！</strong> 40 岁代谢变慢，饿反而降低代谢。关键是
+      <strong>吃对顺序 + 换掉搭配</strong>。
+    </p>
+    <div style="font-size:14px;font-weight:700;margin-bottom:8px;">🔑 黄金进食顺序</div>
+    <div style="background:var(--warning-light);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:14px;text-align:center;font-weight:600;">
+      🥬 先吃蔬菜 → 🥩 再吃肉/蛋/豆腐 → 🍚 最后吃米饭
+    </div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:8px;">📅 一日三餐模板</div>
+    <div class="meal-grid">
+      <div class="meal-card"><div class="meal-time">🌅 早餐 7-8点</div><div class="meal-icon">🥚☕</div><div class="meal-food"><span>水煮蛋 2 颗</span><span>无糖豆浆/黑咖啡</span><span>蒸地瓜 1 小条</span></div></div>
+      <div class="meal-card"><div class="meal-time">☀️ 午餐 12-13点</div><div class="meal-icon">🍗🥦</div><div class="meal-food"><span>糙米饭/杂粮饭 半碗</span><span>鸡胸/鱼肉/瘦牛肉</span><span>绿叶青菜 随便吃</span></div></div>
+      <div class="meal-card"><div class="meal-time">🌙 晚餐 18-19点</div><div class="meal-icon">🫘🥒</div><div class="meal-food"><span>豆腐/虾仁/蒸蛋</span><span>黄瓜/生菜/西红柿</span><span>海带芽蛋花汤</span></div></div>
+    </div>
+    <div style="font-size:14px;font-weight:700;margin:12px 0 8px;">📏 四条铁律</div>
+    <div class="diet-rule-list">
+      <div class="diet-rule-item"><span class="badge">1</span><div><strong>🚫 戒含糖饮料</strong><br><span class="rule-desc">奶茶、可乐、果汁 → 白水/茶/黑咖啡（小肚子头号元凶）</span></div></div>
+      <div class="diet-rule-item"><span class="badge">2</span><div><strong>🥬 先吃蔬菜再吃主食</strong><br><span class="rule-desc">蔬菜 → 蛋白质 → 碳水，血糖降 37%</span></div></div>
+      <div class="diet-rule-item"><span class="badge">3</span><div><strong>🌙 晚餐 7 点前吃完</strong><br><span class="rule-desc">之后只喝水，睡前不囤积脂肪</span></div></div>
+      <div class="diet-rule-item"><span class="badge">4</span><div><strong>🌾 主食换粗粮</strong><br><span class="rule-desc">至少一半换成红薯、玉米、糙米、燕麦</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 🏋️ 今日训练 ==================== -->
+<div class="section">
+  <div class="section-header" style="cursor:default;">
+    <span class="title">🏋️ 今日训练 <span id="phaseLabel" style="font-size:11px;color:var(--text-secondary);font-weight:400;"></span></span>
+    <span class="section-progress" id="workoutProgress">0/4</span>
+  </div>
+  <div class="section-body open" style="display:block;padding-top:0;">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="workoutBar" style="width:0%"></div></div>
+    <div id="workoutItems"></div>
+  </div>
+</div>
+
+<!-- ==================== 🥗 今日饮食 ==================== -->
+<div class="section">
+  <div class="section-header" style="cursor:default;">
+    <span class="title">🥗 今日饮食</span>
+    <span class="section-progress" id="dietProgress">0/4</span>
+  </div>
+  <div class="section-body open" style="display:block;padding-top:0;">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="dietBar" style="width:0%"></div></div>
+    <div id="dietItems"></div>
+  </div>
+</div>
+
+<!-- ==================== 📅 本周打卡 ==================== -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection('weekSection')">
+    <span class="title">📅 本周打卡</span>
+    <span class="toggle-icon" id="ico-weekSection">▾</span>
+  </div>
+  <div class="section-body" id="weekSection">
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+</div>
+
+<!-- ==================== 📊 本月记录 ==================== -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection('monthSection')">
+    <span class="title">📊 本月记录</span>
+    <span class="section-progress" id="monthRate" style="font-size:12px;">0%</span>
+  </div>
+  <div class="section-body" id="monthSection">
+    <div class="timeline-month" id="monthLabel"></div>
+    <div class="timeline-grid" id="timelineGrid"></div>
+  </div>
+</div>
+
+<!-- ==================== 重置 ==================== -->
+<div class="reset-area">
+  <button class="reset-btn" onclick="resetToday()">↻ 重置今日打卡</button>
+</div>
+
+<div class="quote">
+  "每天 10 分钟，40 岁一样能练出好身材"<br>
+  今天的坚持，明天的底气 💪
+</div>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-overlay" id="phaseModal" onclick="closePhaseModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-sub" id="modalSub"></div>
+    <div id="modalExercises"></div>
+    <button class="modal-close-btn" onclick="closePhaseModal()">收起</button>
+  </div>
+</div>
+
+<script>
+// ======================== 数据 ========================
+
+const EXERCISES = {
+  '1-2': [
+    { id: 'plank',     title: '🧱 平板支撑',      desc: '30 秒 × 3 组',
+      tip: '背部挺直，腹部收紧，不要塌腰', video: 'https://www.bilibili.com/video/av1406434696/', videoLabel: '📺 平板支撑教学' },
+    { id: 'bicycle',   title: '🚲 空中蹬车',      desc: '20 次 × 3 组',
+      tip: '手放耳侧，扭转时肘碰对侧膝盖，下背贴地', video: 'https://www.bilibili.com/video/BV1dM4m1m7n8/', videoLabel: '📺 含空中蹬车合集' },
+    { id: 'birddog',   title: '🐕 鸟狗式',        desc: '每侧 10 次 × 3 组',
+      tip: '脊柱中立，手脚同时伸展，臀部收紧', video: 'https://www.bilibili.com/video/BV13s421w7Dj/', videoLabel: '📺 鸟狗式教学' },
+    { id: 'cooldown',  title: '💨 呼吸调整',       desc: '30 秒休息，调匀呼吸',
+      tip: '深呼吸，感受核心收紧和放松的交替', video: '', videoLabel: '' },
+  ],
+  '3-4': [
+    { id: 'plank',     title: '🧱 平板支撑',      desc: '45 秒 × 3 组',
+      tip: '比入门期增加 15 秒，保持核心绷紧', video: 'https://www.bilibili.com/video/av1406434696/', videoLabel: '📺 平板支撑教学' },
+    { id: 'reverse',   title: '⬆️ 反向卷腹',      desc: '15 次 × 3 组（专攻下腹）',
+      tip: '臀部抬离地面带动骨盆后倾，慢放控制', video: 'https://www.bilibili.com/video/BV1dM4m1m7n8/', videoLabel: '📺 核心合集' },
+    { id: 'deadbug',   title: '🪲 死虫式',        desc: '每侧 12 次 × 3 组',
+      tip: '腰部全程贴地，对侧手脚缓慢收回，腹部绷紧', video: 'https://www.bilibili.com/video/BV13s421w7Dj/', videoLabel: '📺 死虫式教学' },
+    { id: 'cooldown',  title: '💨 呼吸调整',       desc: '30 秒休息，腰部贴地',
+      tip: '平躺屈膝，手掌放腹部感受起伏', video: '', videoLabel: '' },
+  ],
+  '5+': [
+    { id: 'plank',     title: '🧱 平板支撑',      desc: '60 秒 × 3 组',
+      tip: '挑战一分钟！双腿并拢，臀部夹紧', video: 'https://www.bilibili.com/video/av1406434696/', videoLabel: '📺 平板支撑教学' },
+    { id: 'bicycle',   title: '🚲 空中蹬车',      desc: '25 次 × 3 组',
+      tip: '速度不要太快，感受腹肌全程发力', video: 'https://www.bilibili.com/video/BV1dM4m1m7n8/', videoLabel: '📺 含空中蹬车合集' },
+    { id: 'deadbug',   title: '🪲 死虫式',        desc: '每侧 15 次 × 3 组',
+      tip: '控制节奏，3 秒伸 3 秒收，追求质量', video: 'https://www.bilibili.com/video/BV13s421w7Dj/', videoLabel: '📺 死虫式教学' },
+    { id: 'reverse',   title: '⬆️ 反向卷腹',      desc: '15 次 × 2 组（收尾）',
+      tip: '最后收尾动作，感受下腹灼烧感', video: 'https://www.bilibili.com/video/BV1dM4m1m7n8/', videoLabel: '📺 核心合集' },
+  ],
+}
+
+const PHASE_META = {
+  '1-2': { label: '🌱 入门期', weeks: '第 1-2 周', desc: '打好核心基础，建立运动习惯', videoLink: 'https://www.bilibili.com/video/BV1dM4m1m7n8/', videoLabel: '🎬 看完整入门期教学视频' },
+  '3-4': { label: '🌿 进阶期', weeks: '第 3-4 周', desc: '增加难度，专攻下腹', videoLink: 'https://www.bilibili.com/video/BV13s421w7Dj/', videoLabel: '🎬 看死虫式+鸟狗式细节' },
+  '5+':  { label: '🌳 强化期', weeks: '第 5 周起', desc: '全面强化，冲刺腹肌线条', videoLink: 'https://www.bilibili.com/video/av1406434696/', videoLabel: '🎬 平板支撑教学' },
+}
+
+const DIET = [
+  { id: 'sugar',  title: '🚫 戒含糖饮料',   desc: '只喝白水/茶/黑咖啡' },
+  { id: 'order',  title: '🥬 先吃蔬菜再吃主食', desc: '蔬菜 → 肉 → 米饭' },
+  { id: 'dinner', title: '🌙 晚餐 7 点前吃完', desc: '之后只喝水' },
+  { id: 'carb',   title: '🌾 主食换粗粮',   desc: '至少一半红薯/玉米/糙米' },
+]
+
+// ======================== 存储 ========================
+
+function getData() {
+  const raw = localStorage.getItem('fit-tracker-data')
+  if (raw) { try { return JSON.parse(raw) } catch(e) {} }
+  return { logs: {}, startDate: new Date().toISOString().split('T')[0] }
+}
+
+function saveData(data) { localStorage.setItem('fit-tracker-data', JSON.stringify(data)) }
+function today() { return new Date().toISOString().split('T')[0] }
+
+// ======================== 阶段 ========================
+
+function getPhase(weeksSinceStart) {
+  if (weeksSinceStart < 0) weeksSinceStart = 0
+  if (weeksSinceStart < 2) return '1-2'
+  if (weeksSinceStart < 4) return '3-4'
+  return '5+'
+}
+
+function getExercisesForToday() {
+  const data = getData()
+  const start = new Date(data.startDate)
+  const diffDays = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24))
+  const weeks = Math.floor(diffDays / 7)
+  const phase = getPhase(weeks)
+  return { exercises: EXERCISES[phase], phase }
+}
+
+// ======================== 打卡 ========================
+
+function loadDay(dateStr) {
+  const data = getData()
+  if (!data.logs[dateStr]) data.logs[dateStr] = { workout: [], diet: [] }
+  return data.logs[dateStr]
+}
+
+function toggleWorkout(id) {
+  const day = loadDay(today())
+  const idx = day.workout.indexOf(id)
+  if (idx > -1) day.workout.splice(idx, 1)
+  else day.workout.push(id)
+  const data = getData()
+  data.logs[today()] = day
+  saveData(data)
+  render()
+}
+
+function toggleDiet(id) {
+  const day = loadDay(today())
+  const idx = day.diet.indexOf(id)
+  if (idx > -1) day.diet.splice(idx, 1)
+  else day.diet.push(id)
+  const data = getData()
+  data.logs[today()] = day
+  saveData(data)
+  render()
+}
+
+// ======================== 连续天数 ========================
+
+function calcStreak() {
+  const data = getData()
+  let streak = 0
+  const d = new Date()
+  const t = data.logs[today()]
+  const tc = t && t.workout.length >= 3 && t.diet.length >= 3
+  if (!tc) d.setDate(d.getDate() - 1)
+  while (true) {
+    const ds = d.toISOString().split('T')[0]
+    const log = data.logs[ds]
+    const c = log && log.workout.length >= 3 && log.diet.length >= 3
+    if (c) { streak++; d.setDate(d.getDate() - 1) }
+    else break
+  }
+  return streak
+}
+
+// ======================== 折叠 ========================
+
+function toggleSection(id) {
+  const body = document.getElementById(id)
+  const ico = document.getElementById('ico-' + id)
+  if (!body || !ico) return
+  const isOpen = body.classList.toggle('open')
+  ico.classList.toggle('open', isOpen)
+}
+
+// ======================== 阶段详情弹窗 ========================
+
+function openPhaseModal(phaseKey) {
+  const ex = EXERCISES[phaseKey]
+  const meta = PHASE_META[phaseKey]
+  if (!ex || !meta) return
+
+  document.getElementById('modalTitle').textContent = meta.label
+  document.getElementById('modalSub').textContent = `${meta.weeks} · ${meta.desc}`
+
+  const container = document.getElementById('modalExercises')
+  container.innerHTML = ex.map(e => {
+    let videoHtml = ''
+    if (e.video) {
+      videoHtml = `<a class="modal-video-link" href="${e.video}" target="_blank">${e.videoLabel} ↗</a>`
+    }
+    return `<div class="modal-exercise">
+      <div class="e-icon">${e.title.split(' ')[0]}</div>
+      <div class="e-info">
+        <div class="e-name">${e.title}</div>
+        <div class="e-set">${e.desc}</div>
+        <div class="e-tip">💡 ${e.tip}</div>
+        ${videoHtml}
+      </div>
+    </div>`
+  }).join('')
+
+  document.getElementById('phaseModal').classList.add('show')
+  document.body.style.overflow = 'hidden'
+}
+
+function closePhaseModal(e) {
+  if (e && e.target !== e.currentTarget) return
+  document.getElementById('phaseModal').classList.remove('show')
+  document.body.style.overflow = ''
+}
+
+// ======================== 分享到朋友圈 ========================
+
+function shareToMoments() {
+  const streak = calcStreak()
+  const data = getData()
+  const { phase } = getExercisesForToday()
+  const phaseLabels = { '1-2': '入门期', '3-4': '进阶期', '5+': '强化期' }
+  const date = new Date()
+  const dateStr = `${date.getMonth()+1}月${date.getDate()}日`
+
+  const shareText =
+`🔥 东哥 · 10分钟核心计划 · ${dateStr}打卡完成 ✅
+
+📊 连续打卡：${streak} 天
+🏋️ 当前阶段：${phaseLabels[phase]}（${phase === '1-2' ? '平板支撑+空中蹬车+鸟狗式' : phase === '3-4' ? '平板支撑+反向卷腹+死虫式' : '平板支撑+空中蹬车+死虫式+反向卷腹'}）
+🥗 饮食规则全部遵守 ✅
+
+💪 每天 10 分钟，40 岁一样练出好身材！
+让朋友见证我的自律，一起加油！`
+
+  // Try Web Share API first (works great on mobile, directly to WeChat)
+  if (navigator.share) {
+    navigator.share({
+      title: '🔥 东哥 · 10分钟核心训练打卡',
+      text: shareText,
+    }).catch(() => {})
+    return
+  }
+
+  // Fallback: copy to clipboard
+  copyToClipboard(shareText)
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✅ 已复制到剪贴板，去朋友圈粘贴吧！')
+    }).catch(() => {
+      fallbackCopy(text)
+    })
+  } else {
+    fallbackCopy(text)
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea')
+  ta.value = text
+  ta.style.position = 'fixed'
+  ta.style.opacity = '0'
+  document.body.appendChild(ta)
+  ta.select()
+  try {
+    document.execCommand('copy')
+    showToast('✅ 已复制到剪贴板，去朋友圈粘贴吧！')
+  } catch(e) {
+    showToast('❌ 复制失败，请手动复制文字')
+  }
+  document.body.removeChild(ta)
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast')
+  el.textContent = msg
+  el.classList.add('show')
+  clearTimeout(el._timer)
+  el._timer = setTimeout(() => el.classList.remove('show'), 2500)
+}
+
+// ======================== 渲染 ========================
+
+function render() {
+  const todayStr = today()
+  const day = loadDay(todayStr)
+  const data = getData()
+  const now = new Date()
+  const weekdays = ['日','一','二','三','四','五','六']
+
+  document.getElementById('dateDisplay').textContent =
+    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 星期${weekdays[now.getDay()]}`
+
+  document.getElementById('streakCount').textContent = calcStreak()
+
+  // ===== 训练 =====
+  const { exercises, phase } = getExercisesForToday()
+  const phaseLabels = { '1-2': '入门期', '3-4': '进阶期', '5+': '强化期' }
+  document.getElementById('phaseLabel').textContent = `· ${phaseLabels[phase] || ''}`
+
+  document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('current'))
+  const phaseMap = { '1-2': 'phase1', '3-4': 'phase2', '5+': 'phase3' }
+  const el = document.getElementById(phaseMap[phase])
+  if (el) el.classList.add('current')
+
+  const workoutDone = exercises.filter(e => day.workout.includes(e.id))
+  const workoutTotal = exercises.length
+  const isWorkoutComplete = workoutDone.length >= workoutTotal
+
+  document.getElementById('workoutProgress').textContent = `${workoutDone.length}/${workoutTotal}`
+  const wbar = document.getElementById('workoutBar')
+  wbar.style.width = `${(workoutDone.length/workoutTotal)*100}%`
+  wbar.className = 'progress-bar-fill' + (isWorkoutComplete ? ' complete' : '')
+
+  const wContainer = document.getElementById('workoutItems')
+  wContainer.innerHTML = exercises.map(ex => {
+    const done = day.workout.includes(ex.id)
+    const hasVideo = ex.video ? `<a href="${ex.video}" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;margin-left:6px;" onclick="event.stopPropagation()">📺</a>` : ''
+    return `<div class="checklist-item ${done?'done':''}" onclick="toggleWorkout('${ex.id}')">
+      <div class="checkbox">${done?'✓':''}</div>
+      <div class="item-text">
+        <div class="item-title">${ex.title} ${hasVideo}</div>
+        <div class="item-desc">${ex.desc}</div>
+      </div>
+    </div>`
+  }).join('')
+
+  // ===== 饮食 =====
+  const dietDone = DIET.filter(d => day.diet.includes(d.id))
+  const dietTotal = DIET.length
+  const isDietComplete = dietDone.length >= dietTotal
+
+  document.getElementById('dietProgress').textContent = `${dietDone.length}/${dietTotal}`
+  const dbar = document.getElementById('dietBar')
+  dbar.style.width = `${(dietDone.length/dietTotal)*100}%`
+  dbar.className = 'progress-bar-fill' + (isDietComplete ? ' complete' : '')
+
+  const dContainer = document.getElementById('dietItems')
+  dContainer.innerHTML = DIET.map(d => {
+    const done = day.diet.includes(d.id)
+    return `<div class="checklist-item ${done?'done':''}" onclick="toggleDiet('${d.id}')">
+      <div class="checkbox">${done?'✓':''}</div>
+      <div class="item-text">
+        <div class="item-title">${d.title}</div>
+        <div class="item-desc">${d.desc}</div>
+      </div>
+    </div>`
+  }).join('')
+
+  // ===== 全部完成 → 显示分享 =====
+  const allDone = isWorkoutComplete && isDietComplete
+  const ca = document.getElementById('congratsArea')
+  ca.className = 'congrats-area' + (allDone ? ' show' : '')
+  if (allDone) {
+    document.getElementById('timeSpent').textContent = phase === '5+' ? '12' : '10'
+  }
+
+  renderWeek()
+  renderTimeline()
+}
+
+function renderWeek() {
+  const grid = document.getElementById('weekGrid')
+  const data = getData()
+  const wd = ['一','二','三','四','五','六','日']
+  const now = new Date()
+  const dow = now.getDay()
+  const monday = new Date(now)
+  monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1))
+  let html = wd.map(d => `<div class="week-day">${d}</div>`).join('')
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday); d.setDate(monday.getDate() + i)
+    const ds = d.toISOString().split('T')[0]
+    const log = data.logs[ds]
+    const isToday = ds === today()
+    const done = log && log.workout.length >= 3 && log.diet.length >= 3
+    const missed = !done && log && (log.workout.length > 0 || log.diet.length > 0) && !isToday
+    let cls = 'week-ball'
+    if (done) cls += ' done'
+    if (isToday) cls += ' today'
+    if (missed && !done) cls += ' missed'
+    html += `<div><div class="${cls}">${d.getDate()}</div></div>`
+  }
+  grid.innerHTML = html
+
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)
+  let total = 0, completed = 0
+  const dd = new Date(monthStart)
+  while (dd <= now) {
+    const ds = dd.toISOString().split('T')[0]
+    const log = data.logs[ds]
+    if (log && log.workout.length >= 3 && log.diet.length >= 3) completed++
+    total++; dd.setDate(dd.getDate() + 1)
+  }
+  document.getElementById('monthRate').textContent = total > 0 ? `${Math.round(completed/total*100)}%` : '0%'
+}
+
+function renderTimeline() {
+  const grid = document.getElementById('timelineGrid')
+  const data = getData()
+  const now = new Date()
+  const dim = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
+  document.getElementById('monthLabel').textContent = `${now.getFullYear()}年${now.getMonth()+1}月`
+  let html = ''
+  for (let i = 1; i <= dim; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth(), i)
+    const ds = d.toISOString().split('T')[0]
+    const log = data.logs[ds]
+    const isToday = ds === today()
+    const done = log && log.workout.length >= 3 && log.diet.length >= 3
+    let cls = 'timeline-day'
+    if (done) cls += ' done'
+    else if (log && ds !== today()) cls += ' missed'
+    if (isToday) cls += ' today-highlight'
+    html += `<div class="${cls}" title="${i}日${done?' ✅':log?' ⚠️':''}"></div>`
+  }
+  grid.innerHTML = html
+}
+
+function resetToday() {
+  if (!confirm('确定要重置今天的打卡记录吗？')) return
+  const data = getData()
+  delete data.logs[today()]
+  saveData(data)
+  render()
+}
+
+// ======================== 启动 ========================
+
+;(function init() {
+  const data = getData()
+  if (!data.logs[today()]) {
+    data.logs[today()] = { workout: [], diet: [] }
+    saveData(data)
+  }
+  render()
+})()
+
+setInterval(() => {
+  const now = new Date()
+  if (now.getHours() === 0 && now.getMinutes() === 0) render()
+}, 60000)
+</script>
+</body>
+</html>
